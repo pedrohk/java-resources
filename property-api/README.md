@@ -42,7 +42,7 @@ This project demonstrates a clean architecture for Property Management Systems (
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/pedrohk/property-api.git
+git clone https://github.com/pedrohk/java-resources.git
 cd property-api
 ```
 
