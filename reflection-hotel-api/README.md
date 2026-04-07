@@ -70,7 +70,7 @@ Executing a method dynamically using its name as a string, enabling runtime beha
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/pedrohk/reflection-hotel-api.git
+git clone https://github.com/pedrohk/java-resources.git
 cd reflection-hotel-api
 ```
 
