@@ -108,7 +108,7 @@ streams-hotel-api
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/pedrohk/streams-hotel-api.git
+git clone https://github.com/pedrohk/java-resources.git
 cd streams-hotel-api
 ```
 
