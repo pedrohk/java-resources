@@ -92,7 +92,7 @@ mvn clean test
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/pedrohk/functional-hotel-api.git
+git clone https://github.com/pedrohk/java-resources.git
 cd functional-hotel-api
 ```
 
