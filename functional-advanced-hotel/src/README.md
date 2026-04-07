@@ -116,7 +116,7 @@ functional-advanced-hotel
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/pedrohk/functional-advanced-hotel.git
+git clone https://github.com/pedrohk/java-resources.git
 cd functional-advanced-hotel
 ```
 
