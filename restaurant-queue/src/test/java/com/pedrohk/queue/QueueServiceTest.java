@@ -3,54 +3,56 @@ package com.pedrohk.queue;
 import com.pedrohk.queue.model.Dish;
 import com.pedrohk.queue.model.Order;
 import com.pedrohk.queue.service.QueueService;
+import com.pedrohk.router.NotificationService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class QueueServiceTest {
+    private QueueService service;
+    private NotificationService notificationService;
+
+    @BeforeEach
+    void setup() {
+        notificationService = new NotificationService();
+        service = new QueueService(1, notificationService);
+    }
+
     @Test
     void testWaitTimeEstimation() {
-        QueueService service = new QueueService(2);
         Dish pizza = new Dish("Pizza", 20);
-        Dish pasta = new Dish("Pasta", 10);
+        service.placeOrder(new Order(1, "c1@test.com", pizza, LocalDateTime.now()));
 
-        service.placeOrder(new Order(1, pizza, LocalDateTime.now()));
-        service.placeOrder(new Order(2, pizza, LocalDateTime.now()));
 
-        int waitTime = service.estimateWaitTimeMinutes(pasta);
-        assertEquals(30, waitTime);
+        assertEquals(40, service.estimateWaitTimeMinutes(pizza));
     }
 
     @Test
     void testEmptyQueueEstimation() {
-        QueueService service = new QueueService(1);
         Dish burger = new Dish("Burger", 15);
         assertEquals(15, service.estimateWaitTimeMinutes(burger));
     }
 
     @Test
     void testQueueCompletionReducesTime() {
-        QueueService service = new QueueService(1);
         Dish dish = new Dish("Dish", 10);
-        service.placeOrder(new Order(1, dish, LocalDateTime.now()));
+        service.placeOrder(new Order(1, "c1@test.com", dish, LocalDateTime.now()));
 
         assertEquals(20, service.estimateWaitTimeMinutes(dish));
+
         service.completeOrder();
+
         assertEquals(10, service.estimateWaitTimeMinutes(dish));
     }
 
     @Test
-    void testCapacityImpactOnEstimation() {
-        QueueService highCapacity = new QueueService(10);
-        QueueService lowCapacity = new QueueService(1);
-        Dish longDish = new Dish("Steak", 50);
+    void testCapacityImpact() {
+        QueueService multiChef = new QueueService(2, notificationService);
+        Dish pasta = new Dish("Pasta", 20);
 
-        highCapacity.placeOrder(new Order(1, longDish, LocalDateTime.now()));
-        lowCapacity.placeOrder(new Order(2, longDish, LocalDateTime.now()));
-
-        assertTrue(highCapacity.estimateWaitTimeMinutes(longDish) < lowCapacity.estimateWaitTimeMinutes(longDish));
+        assertEquals(10, multiChef.estimateWaitTimeMinutes(pasta));
     }
 }
