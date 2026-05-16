@@ -21,7 +21,8 @@ public class S3Service {
     }
 
     public String uploadArquivo(MultipartFile file) throws IOException {
-        String chaveArquivo = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        String nomePasta = "Aula-Java/";
+        String chaveArquivo = nomePasta + System.currentTimeMillis() + "_" + file.getOriginalFilename();
 
         PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                 .bucket(bucketName)
@@ -34,4 +35,5 @@ public class S3Service {
 
         return "Arquivo enviado com sucesso! Chave: " + chaveArquivo;
     }
+
 }
